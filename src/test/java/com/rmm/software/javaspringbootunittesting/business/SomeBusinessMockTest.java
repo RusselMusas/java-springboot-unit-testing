@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import com.rmm.software.javaspringbootunittesting.data.SomeDataService;
@@ -13,56 +14,34 @@ import com.rmm.software.javaspringbootunittesting.data.SomeDataService;
  * @Comment Unit Tests using Stub dataService
  */
 class SomeBusinessMockTest {
+	
+	// Create business reference
+	private SomeBusinessImpl business = new SomeBusinessImpl();
+	// Creating Mock service
+	private SomeDataService dataServiceMock = mock(SomeDataService.class);
+	
+	@BeforeEach
+	void beforeTest() {
+		// Set MockService Implementation to business class
+		business.setSomeDataService(dataServiceMock);
+	}
 
 	@Test
 	void someBusinessUsingDataSercice_basic() {
-		SomeBusinessImpl business = new SomeBusinessImpl();
-
-		// Creating Mock service
-		SomeDataService dataServiceMock = mock(SomeDataService.class);
 		when(dataServiceMock.retreiveAllData()).thenReturn(new int[] { 1, 3, 5 });
-
-		// Set MockService Implementation to business class
-		business.setSomeDataService(dataServiceMock);
-		
-		int actualResult = business.calculateSumUsingDataSercice();
-		int expectedResult = 9;
-
-		assertEquals(expectedResult, actualResult);
+		assertEquals(9, business.calculateSumUsingDataSercice());
 	}
 
 	@Test
 	void someBusinessUsingDataSercice_emptyArray() {
-		SomeBusinessImpl business = new SomeBusinessImpl();
-
-		// Creating Mock service
-		SomeDataService dataServiceMock = mock(SomeDataService.class);
 		when(dataServiceMock.retreiveAllData()).thenReturn(new int[] { });
-
-		// Set MockService Implementation to business class
-		business.setSomeDataService(dataServiceMock);
-		
-		int actualResult = business.calculateSumUsingDataSercice();
-		int expectedResult = 0;
-
-		assertEquals(expectedResult, actualResult);
+		assertEquals(0, business.calculateSumUsingDataSercice());
 	}
 
 	@Test
 	void someBusinessUsingDataSercice_oneValue() {
-		SomeBusinessImpl business = new SomeBusinessImpl();
-		
-		// Creating Mock service
-		SomeDataService dataServiceMock = mock(SomeDataService.class);
 		when(dataServiceMock.retreiveAllData()).thenReturn(new int[] { 12 });
-		
-		// Set MockService Implementation to business class
-		business.setSomeDataService(dataServiceMock);
-		
-		int actualResult = business.calculateSumUsingDataSercice();
-		int expectedResult = 12;
-
-		assertEquals(expectedResult, actualResult);
+		assertEquals(12, business.calculateSumUsingDataSercice());
 	}
 
 }
