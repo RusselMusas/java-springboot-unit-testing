@@ -51,7 +51,7 @@ class someDataServiceStubOne implements SomeDataService {
  * @author RUSSEL
  * @Comment Unit Tests using Stub dataService
  */
-class SomeBusinessUsingDataServiceTest {
+class SomeBusinessStubTest {
 	
 	@Test
 	void someBusinessUsingDataSercice_basic() {
