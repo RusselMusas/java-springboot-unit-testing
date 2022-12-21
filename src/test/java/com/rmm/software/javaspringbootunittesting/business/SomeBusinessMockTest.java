@@ -1,11 +1,13 @@
 package com.rmm.software.javaspringbootunittesting.business;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.rmm.software.javaspringbootunittesting.data.SomeDataService;
 
@@ -13,19 +15,17 @@ import com.rmm.software.javaspringbootunittesting.data.SomeDataService;
  * @author RUSSEL
  * @Comment Unit Tests using Stub dataService
  */
+@ExtendWith(MockitoExtension.class)
 class SomeBusinessMockTest {
 	
-	// Create business reference
-	private SomeBusinessImpl business = new SomeBusinessImpl();
-	// Creating Mock service
-	private SomeDataService dataServiceMock = mock(SomeDataService.class);
+	// Create Mock
+	@Mock
+	private SomeDataService dataServiceMock;
 	
-	@BeforeEach
-	void beforeTest() {
-		// Set MockService Implementation to business class
-		business.setSomeDataService(dataServiceMock);
-	}
-
+	// Inject Mock into business service
+	@InjectMocks
+	private SomeBusinessImpl business;
+	
 	@Test
 	void someBusinessUsingDataSercice_basic() {
 		when(dataServiceMock.retreiveAllData()).thenReturn(new int[] { 1, 3, 5 });
