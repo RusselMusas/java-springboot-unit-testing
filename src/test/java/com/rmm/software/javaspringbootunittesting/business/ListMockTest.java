@@ -6,12 +6,18 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.Mockito.atLeast;
+import static org.mockito.Mockito.atLeastOnce;
+import static org.mockito.Mockito.atMost;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 class ListMockTest {
 	
-	private List mock = mock(List.class);
+	private List<String> mock = mock(List.class);
 
 	
 	@Test
@@ -46,6 +52,22 @@ class ListMockTest {
 		assertEquals("int returned", mock.get(0));
 		assertEquals("int returned", mock.get(5));
 		assertEquals("int returned", mock.get(10));
+	}
+	
+	@Test
+	void verificationBasics() {
+		// System Under Testing: SUT
+		String value1 = mock.get(0);
+		String value2 = mock.get(3);
+		
+		// Verify
+		verify(mock).get(0);
+		verify(mock, times(2)).get(anyInt());
+		verify(mock, times(2)).get(anyInt());
+		verify(mock, atLeast(1)).get(anyInt());
+		verify(mock, atLeastOnce()).get(anyInt());
+		verify(mock, atMost(2)).get(anyInt());
+		verify(mock, never()).get(10);
 	}
 
 }
