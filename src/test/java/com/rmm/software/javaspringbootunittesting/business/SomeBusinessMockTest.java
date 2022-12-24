@@ -31,7 +31,7 @@ class SomeBusinessMockTest {
 		when(dataServiceMock.retreiveAllData()).thenReturn(new int[] { 1, 3, 5 });
 		assertEquals(9, business.calculateSumUsingDataSercice());
 	}
-
+	
 	@Test
 	void someBusinessUsingDataSercice_emptyArray() {
 		when(dataServiceMock.retreiveAllData()).thenReturn(new int[] { });
