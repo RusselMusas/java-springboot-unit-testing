@@ -5,6 +5,7 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -35,6 +36,16 @@ class ListMockTest {
 		assertEquals("0 returned", mock.get(0));
 		assertEquals("end", mock.get(0));
 		assertEquals(null, mock.get(1)); // default null is returned
+	}
+	
+	@Test
+	void returnWithGenericParameters() {
+		// Use of anyInt()
+		when(mock.get(anyInt())).thenReturn("int returned");
+
+		assertEquals("int returned", mock.get(0));
+		assertEquals("int returned", mock.get(5));
+		assertEquals("int returned", mock.get(10));
 	}
 
 }
