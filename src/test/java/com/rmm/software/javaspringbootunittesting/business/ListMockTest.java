@@ -3,6 +3,7 @@ package com.rmm.software.javaspringbootunittesting.business;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.anyInt;
@@ -68,6 +69,18 @@ class ListMockTest {
 		verify(mock, atLeastOnce()).get(anyInt());
 		verify(mock, atMost(2)).get(anyInt());
 		verify(mock, never()).get(10);
+	}
+	
+	@Test
+	void argumentCapturing() {
+		// SUT
+		mock.add("some argument");
+		
+		// Verify
+		ArgumentCaptor<String> captor = ArgumentCaptor.forClass(String.class);
+		verify(mock).add(captor.capture());
+		
+		assertEquals("some argument", captor.getValue());
 	}
 
 }
