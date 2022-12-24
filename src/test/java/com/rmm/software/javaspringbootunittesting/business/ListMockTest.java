@@ -98,4 +98,19 @@ class ListMockTest {
 		assertEquals("some argument2", allValues.get(1));
 	}
 	
+	@Test
+	void spying() {
+		// SUT
+		mock.add("some argument1");
+		mock.add("some argument2");
+		
+		// Verify
+		ArgumentCaptor<String> captor = ArgumentCaptor.forClass(String.class);
+		verify(mock, times(2)).add(captor.capture());
+		
+		List<String> allValues = captor.getAllValues();
+		assertEquals("some argument1", allValues.get(0));
+		assertEquals("some argument2", allValues.get(1));
+	}
+	
 }
