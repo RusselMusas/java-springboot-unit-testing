@@ -1,6 +1,7 @@
 package com.rmm.software.javaspringbootunittesting.restcontroller;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,10 @@ class HelloWorldRestControllerTest {
 		RequestBuilder request = MockMvcRequestBuilders
 				.get("/hello-world")
 				.accept(MediaType.APPLICATION_JSON);
-		MvcResult result = mockMvc.perform(request).andReturn();
+		MvcResult result = mockMvc.perform(request)
+				.andExpect(status().isOk())
+				.andExpect(content().string("Hello World"))
+				.andReturn();
 		
 		// Verify the response
 		// System.out.println("Response body: " + result.getResponse().getContentAsString());
